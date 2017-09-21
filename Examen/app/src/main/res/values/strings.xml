@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Examen</string>
+
+    <!--App Message-->
+    <string name="some_error">A ocurrido un error!</string>
+    <string name="api_retry_error">Por favor, intenta de nuevo!</string>
+    <string name="api_default_error">Algo ha pasado!</string>
+    <string name="connection_error">Se perdió la conexión a internet!</string>
+</resources>
