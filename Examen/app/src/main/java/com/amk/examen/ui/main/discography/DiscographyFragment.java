@@ -1,7 +1,6 @@
-package com.amk.examen.ui.main.artist;
+package com.amk.examen.ui.main.discography;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,10 +14,10 @@ import com.amk.examen.R;
 import com.amk.examen.data.network.model.GettingStartedResponse;
 import com.amk.examen.di.component.ActivityComponent;
 import com.amk.examen.ui.base.BaseFragment;
-import com.amk.examen.ui.main.categories.CategoriesAdapter;
-import com.amk.examen.ui.main.categories.CategoriesFragment;
-import com.amk.examen.ui.main.categories.CategoriesMvpPresenter;
-import com.amk.examen.ui.main.categories.CategoriesMvpView;
+import com.amk.examen.ui.main.artist.ArtistAdapter;
+import com.amk.examen.ui.main.artist.ArtistFragment;
+import com.amk.examen.ui.main.artist.ArtistMvpPresenter;
+import com.amk.examen.ui.main.artist.ArtistMvpView;
 
 import java.util.ArrayList;
 
@@ -30,31 +29,29 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ArtistFragment extends BaseFragment implements
-        ArtistMvpView, ArtistAdapter.Callback {
+public class DiscographyFragment extends BaseFragment implements
+        DiscographyMvpView, DiscographyAdapter.Callback {
 
-    public static final String TAG = "ArtistFragment";
+    public static final String TAG = "DiscographyFragment";
     private static String mPrimaryGenreName = "";
     @Inject
-    ArtistMvpPresenter<ArtistMvpView> mPresenter;
+    DiscographyMvpPresenter<DiscographyMvpView> mPresenter;
     @Inject
-    ArtistAdapter mArtistAdapter;
+    DiscographyAdapter mDiscographyAdapter;
     @Inject
     LinearLayoutManager mLayoutManager;
     @BindView(R.id.repo_recycler_view)
     RecyclerView mRecyclerView;
 
-    public OnInteractionArtist listener;
-
-    public ArtistFragment() {
+    public DiscographyFragment() {
         // Required empty public constructor
     }
 
-    public static ArtistFragment newInstance(String primaryGenreName)
+    public static DiscographyFragment newInstance(String discography)
     {
-        mPrimaryGenreName = primaryGenreName;
+        mPrimaryGenreName = discography;
         Bundle args = new Bundle();
-        ArtistFragment fragment = new ArtistFragment();
+        DiscographyFragment fragment = new DiscographyFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -64,45 +61,26 @@ public class ArtistFragment extends BaseFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_artist, container, false);
+        View view = inflater.inflate(R.layout.fragment_discography, container, false);
 
         ActivityComponent component = getActivityComponent();
         if (component != null) {
             component.inject(this);
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
-            mArtistAdapter.setCallback(this);
-        }
-
-        if (getActivity() instanceof OnInteractionArtist)
-        {
-            this.listener = (OnInteractionArtist) getActivity();
+            mDiscographyAdapter.setCallback(this);
         }
         return view;
     }
 
-    public void onInteractionDiscography(String discography)
-    {
-        listener.onInteractionArtist(discography);
-    }
-
-    public interface OnInteractionArtist {
-
-        void onInteractionArtist(String primaryGenreName);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnInteractionArtist)
-        {
-            this.listener = (OnInteractionArtist) context;
-        }
-    }
-
     @Override
     public void updateRepo(ArrayList<GettingStartedResponse.Result> resultArrayList) {
-        mArtistAdapter.addItems(resultArrayList);
+        mDiscographyAdapter.addItems(resultArrayList);
+    }
+
+    @Override
+    public void onRepoEmptyViewRetryClick() {
+
     }
 
     @Override
@@ -116,8 +94,9 @@ public class ArtistFragment extends BaseFragment implements
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setAdapter(mArtistAdapter);
+        mRecyclerView.setAdapter(mDiscographyAdapter);
 
         mPresenter.onViewPrepared(mPrimaryGenreName);
     }
+
 }

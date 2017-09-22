@@ -19,13 +19,14 @@ import com.amk.examen.ui.custom.RoundedImageView;
 import com.amk.examen.ui.login.LoginActivity;
 import com.amk.examen.ui.main.artist.ArtistFragment;
 import com.amk.examen.ui.main.categories.CategoriesFragment;
+import com.amk.examen.ui.main.discography.DiscographyFragment;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements MainMvpView, CategoriesFragment.OnInteractionKind
+public class MainActivity extends BaseActivity implements MainMvpView, CategoriesFragment.OnInteractionKind, ArtistFragment.OnInteractionArtist
 {
 
     @Inject
@@ -137,7 +138,7 @@ public class MainActivity extends BaseActivity implements MainMvpView, Categorie
                 .beginTransaction()
                 .disallowAddToBackStack()
                 .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
-                .add(R.id.cl_root_view, CategoriesFragment.newInstance(), CategoriesFragment.TAG)
+                .replace(R.id.cl_root_view, CategoriesFragment.newInstance(), CategoriesFragment.TAG)
                 .commit();
     }
 
@@ -149,6 +150,17 @@ public class MainActivity extends BaseActivity implements MainMvpView, Categorie
                 .disallowAddToBackStack()
                 .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
                 .replace(R.id.cl_root_view, ArtistFragment.newInstance(primaryGenreName), ArtistFragment.TAG)
+                .commit();
+    }
+
+    @Override
+    public void showDiscographyFragment(String discography) {
+        lockDrawer();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                .replace(R.id.cl_root_view, DiscographyFragment.newInstance(discography), DiscographyFragment.TAG)
                 .commit();
     }
 
@@ -183,5 +195,10 @@ public class MainActivity extends BaseActivity implements MainMvpView, Categorie
     protected void onDestroy() {
         mPresenter.onDetach();
         super.onDestroy();
+    }
+
+    @Override
+    public void onInteractionArtist(String discography) {
+        showDiscographyFragment(discography);
     }
 }

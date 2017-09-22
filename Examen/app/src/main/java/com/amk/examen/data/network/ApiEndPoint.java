@@ -14,6 +14,11 @@ public final class ApiEndPoint
     public static final String ENDPOINT_ARTIST = BuildConfig.BASE_URL
             + "search?term=";
 
+    public static final String ENDPOINT_DISCOGRAPHY = BuildConfig.BASE_URL
+            + "lookup?id=";
+
+    public static final String ENDPOINT_DISCOGRAPHY_2 = "&entity=album";
+
     private ApiEndPoint() {
 
     }

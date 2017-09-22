@@ -21,6 +21,10 @@ import com.amk.examen.ui.main.categories.CategoriesAdapter;
 import com.amk.examen.ui.main.categories.CategoriesMvpPresenter;
 import com.amk.examen.ui.main.categories.CategoriesMvpView;
 import com.amk.examen.ui.main.categories.CategoriesPresenter;
+import com.amk.examen.ui.main.discography.DiscographyAdapter;
+import com.amk.examen.ui.main.discography.DiscographyMvpPresenter;
+import com.amk.examen.ui.main.discography.DiscographyMvpView;
+import com.amk.examen.ui.main.discography.DiscographyPresenter;
 import com.amk.examen.ui.splash.SplashMvpPresenter;
 import com.amk.examen.ui.splash.SplashMvpView;
 import com.amk.examen.ui.splash.SplashPresenter;
@@ -108,6 +112,17 @@ public class ActivityModule {
     @Provides
     ArtistAdapter provideArtistAdapter() {
         return new ArtistAdapter(new ArrayList<GettingStartedResponse.Result>());
+    }
+
+    @Provides
+    DiscographyMvpPresenter<DiscographyMvpView> provideDiscographyPresenter(
+            DiscographyPresenter<DiscographyMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    DiscographyAdapter provideDiscographyAdapter() {
+        return new DiscographyAdapter(new ArrayList<GettingStartedResponse.Result>());
     }
 
     @Provides

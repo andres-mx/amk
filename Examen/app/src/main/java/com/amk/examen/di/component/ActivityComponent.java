@@ -6,6 +6,7 @@ import com.amk.examen.ui.login.LoginActivity;
 import com.amk.examen.ui.main.MainActivity;
 import com.amk.examen.ui.main.artist.ArtistFragment;
 import com.amk.examen.ui.main.categories.CategoriesFragment;
+import com.amk.examen.ui.main.discography.DiscographyFragment;
 import com.amk.examen.ui.splash.SplashActivity;
 
 import dagger.Component;
@@ -23,4 +24,5 @@ public interface ActivityComponent  {
     void inject(MainActivity activity);
     void inject(CategoriesFragment fragment);
     void inject(ArtistFragment fragment);
+    void inject(DiscographyFragment fragment);
 }

@@ -16,6 +16,8 @@ public interface MainMvpView extends MvpView
 
     void showArtistFragment(String primaryGenreName);
 
+    void showDiscographyFragment(String discography);
+
     void onInteractionKind(String primaryGenreName);
 
     void closeNavigationDrawer();

@@ -61,7 +61,7 @@
                     android:text="TextView" />
 
                 <TextView
-                    android:id="@+id/price_text_view"
+                    android:id="@+id/date_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -70,7 +70,7 @@
                     android:text="TextView" />
 
                 <TextView
-                    android:id="@+id/price_by_song_text_view"
+                    android:id="@+id/number_songs_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -94,6 +94,33 @@
                     android:layout_weight="1"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/price_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/price_by_song_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="TextView" />
+
+                <TextView
+                    android:id="@+id/streaming_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
                     android:text="TextView" />
 
             </LinearLayout>

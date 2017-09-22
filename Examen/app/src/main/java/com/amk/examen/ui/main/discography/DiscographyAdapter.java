@@ -1,4 +1,4 @@
-package com.amk.examen.ui.main.artist;
+package com.amk.examen.ui.main.discography;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.amk.examen.R;
 import com.amk.examen.data.network.model.GettingStartedResponse;
 import com.amk.examen.ui.base.BaseViewHolder;
-import com.amk.examen.ui.main.categories.CategoriesAdapter;
+import com.amk.examen.ui.main.artist.ArtistAdapter;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -19,22 +19,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by andresaleman on 9/21/17.
+ * Created by andresaleman on 9/22/17.
  */
 
-public class ArtistAdapter extends RecyclerView.Adapter<BaseViewHolder>
+public class DiscographyAdapter extends RecyclerView.Adapter<BaseViewHolder>
 {
     public static final int VIEW_TYPE_EMPTY = 0;
     public static final int VIEW_TYPE_NORMAL = 1;
 
-    private ArtistAdapter.Callback mCallback;
+    private DiscographyAdapter.Callback mCallback;
     private ArrayList<GettingStartedResponse.Result> mGettingStartedResponseList;
 
-    public ArtistAdapter(ArrayList<GettingStartedResponse.Result> gettingStartedResponseList) {
+    public DiscographyAdapter(ArrayList<GettingStartedResponse.Result> gettingStartedResponseList) {
         mGettingStartedResponseList = gettingStartedResponseList;
     }
 
-    public void setCallback(ArtistAdapter.Callback callback) {
+    public void setCallback(DiscographyAdapter.Callback callback) {
         mCallback = callback;
     }
 
@@ -48,12 +48,12 @@ public class ArtistAdapter extends RecyclerView.Adapter<BaseViewHolder>
 
         switch (viewType) {
             case VIEW_TYPE_NORMAL:
-                return new ArtistAdapter.ViewHolder(
-                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_artist, parent, false));
+                return new DiscographyAdapter.ViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_discography, parent, false));
             case VIEW_TYPE_EMPTY:
             default:
-                return new ArtistAdapter.EmptyViewHolder(
-                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_artist, parent, false));
+                return new DiscographyAdapter.EmptyViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_discography, parent, false));
         }
     }
 
@@ -81,7 +81,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<BaseViewHolder>
     }
 
     public interface Callback {
-        void onInteractionDiscography(String primaryGenreName);
+        void onRepoEmptyViewRetryClick();
     }
 
     public class ViewHolder extends BaseViewHolder {
@@ -95,17 +95,26 @@ public class ArtistAdapter extends RecyclerView.Adapter<BaseViewHolder>
         @BindView(R.id.album_text_view)
         TextView albumTextView;
 
-        @BindView(R.id.price_text_view)
-        TextView priceTextView;
+        @BindView(R.id.date_text_view)
+        TextView dateTextView;
 
-        @BindView(R.id.price_by_song_text_view)
-        TextView priceBySongTextView;
+        @BindView(R.id.number_songs_text_view)
+        TextView numberSongsTextView;
 
         @BindView(R.id.country_text_view)
         TextView countryTextView;
 
         @BindView(R.id.currency_text_view)
         TextView currencyTextView;
+
+        @BindView(R.id.price_by_song_text_view)
+        TextView priceBySongTextView;
+
+        @BindView(R.id.price_text_view)
+        TextView priceTextView;
+
+        @BindView(R.id.streaming_text_view)
+        TextView streamingTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -122,16 +131,9 @@ public class ArtistAdapter extends RecyclerView.Adapter<BaseViewHolder>
 
             final GettingStartedResponse.Result result = mGettingStartedResponseList.get(position);
 
-            if (result.getArtworkUrl100() != null)
-            {
+            if (result.getArtworkUrl100() != null) {
                 Glide.with(itemView.getContext())
                         .load(result.getArtworkUrl100())
-                        .into(coverImageView);
-            }
-            else if(result.getArtworkUrl100()!=null)
-            {
-                Glide.with(itemView.getContext())
-                        .load(R.mipmap.ic_launcher)
                         .into(coverImageView);
             }
 
@@ -143,12 +145,24 @@ public class ArtistAdapter extends RecyclerView.Adapter<BaseViewHolder>
                 albumTextView.setText(result.getCollectionName().toString());
             }
 
+            if (result.getReleaseDate() != null) {
+                dateTextView.setText(result.getReleaseDate().toString());
+            }
+
+            if (result.getTrackCount() != null) {
+                numberSongsTextView.setText(result.getTrackCount().toString());
+            }
+
             if (result.getCollectionPrice() != 0) {
                 priceTextView.setText(String.valueOf(result.getCollectionPrice()));
             }
 
             if (result.getTrackPrice() != 0) {
                 priceBySongTextView.setText(String.valueOf(result.getTrackPrice()));
+            }
+            else
+            {
+                priceBySongTextView.setText("N/A");
             }
 
             if (result.getCountry() != null) {
@@ -158,13 +172,25 @@ public class ArtistAdapter extends RecyclerView.Adapter<BaseViewHolder>
             if (result.getCurrency() != null) {
                 currencyTextView.setText(result.getCurrency().toString());
             }
+            else
+            {
+                currencyTextView.setText("N/A");
+            }
+
+            if (result.getIsStreamable() != null) {
+                streamingTextView.setText(result.getIsStreamable().toString());
+            }
+            else
+            {
+                streamingTextView.setText("N/A");
+            }
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (result != null)
                     {
-                        mCallback.onInteractionDiscography(result.getArtistId().toString());
+
                     }
                 }
             });
@@ -184,4 +210,3 @@ public class ArtistAdapter extends RecyclerView.Adapter<BaseViewHolder>
         }
     }
 }
-
