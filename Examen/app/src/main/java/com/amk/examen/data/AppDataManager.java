@@ -21,25 +21,38 @@ public class AppDataManager implements DataManager {
 
     private final Context mContext;
     private final DbHelper mDbHelper;
+    private final PreferencesHelper mPreferencesHelper;
     private final ApiHelper mApiHelper;
 
     @Inject
     public AppDataManager(@ApplicationContext Context context,
                           DbHelper dbHelper,
+                          PreferencesHelper preferencesHelper,
                           ApiHelper apiHelper) {
         mContext = context;
         mDbHelper = dbHelper;
+        mPreferencesHelper = preferencesHelper;
         mApiHelper = apiHelper;
     }
 
-    /*@Override
+    @Override
+    public int getCurrentUserLoggedInMode() {
+        return mPreferencesHelper.getCurrentUserLoggedInMode();
+    }
+
+    @Override
+    public void setCurrentUserLoggedInMode(LoggedInMode mode) {
+        mPreferencesHelper.setCurrentUserLoggedInMode(mode);
+    }
+
+    @Override
+    public void updateUserInfo(LoggedInMode loggedInMode)
+    {
+        setCurrentUserLoggedInMode(loggedInMode);
+    }
+
+    @Override
     public void setUserAsLoggedOut() {
-        updateUserInfo(
-                null,
-                null,
-                DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT,
-                null,
-                null,
-                null);
-    }*/
+        updateUserInfo(DataManager.LoggedInMode.LOGGED_IN_MODE_LOGGED_OUT);
+    }
 }

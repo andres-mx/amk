@@ -9,6 +9,9 @@ import com.amk.examen.di.PerActivity;
 import com.amk.examen.ui.login.LoginMvpPresenter;
 import com.amk.examen.ui.login.LoginMvpView;
 import com.amk.examen.ui.login.LoginPresenter;
+import com.amk.examen.ui.main.MainMvpPresenter;
+import com.amk.examen.ui.main.MainMvpView;
+import com.amk.examen.ui.main.MainPresenter;
 import com.amk.examen.ui.splash.SplashMvpPresenter;
 import com.amk.examen.ui.splash.SplashMvpView;
 import com.amk.examen.ui.splash.SplashPresenter;
@@ -64,6 +67,13 @@ public class ActivityModule {
     @PerActivity
     LoginMvpPresenter<LoginMvpView> provideLoginPresenter(
             LoginPresenter<LoginMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    MainMvpPresenter<MainMvpView> provideMainPresenter(
+            MainPresenter<MainMvpView> presenter) {
         return presenter;
     }
 

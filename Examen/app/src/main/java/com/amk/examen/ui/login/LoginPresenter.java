@@ -98,6 +98,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
             public void onFinish()
             {
+                getDataManager().updateUserInfo(DataManager.LoggedInMode.LOGGED_IN_MODE_SERVER);
                 getMvpView().hideLoading();
                 getMvpView().openMainActivity();
             }

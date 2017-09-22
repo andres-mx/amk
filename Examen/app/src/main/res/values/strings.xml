@@ -20,4 +20,13 @@
     <string name="info_special_password">No se permiten caracteres especiales en la contraseña</string>
     <string name="info_letter_user">Se necesita al menos un letra mayúscula en el usuario</string>
     <string name="info_letter_password">Se necesita al menos un letra mayúscula en la contraseña</string>
+
+    <!--Menu Drawer-->
+    <string name="nav_main">Principal</string>
+    <string name="nav_logout">Cerrar Sesión</string>
+    <string name="open_drawer">Drawer Open</string>
+    <string name="close_drawer">Drawer Close</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

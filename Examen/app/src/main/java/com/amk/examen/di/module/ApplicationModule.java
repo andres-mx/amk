@@ -10,6 +10,8 @@ import com.amk.examen.data.db.AppDbHelper;
 import com.amk.examen.data.db.DbHelper;
 import com.amk.examen.data.network.ApiHelper;
 import com.amk.examen.data.network.AppApiHelper;
+import com.amk.examen.data.prefs.AppPreferencesHelper;
+import com.amk.examen.data.prefs.PreferencesHelper;
 import com.amk.examen.di.ApplicationContext;
 import com.amk.examen.di.DatabaseInfo;
 import com.amk.examen.di.PreferenceInfo;
@@ -67,6 +69,12 @@ public class ApplicationModule {
     @Singleton
     DbHelper provideDbHelper(AppDbHelper appDbHelper) {
         return appDbHelper;
+    }
+
+    @Provides
+    @Singleton
+    PreferencesHelper providePreferencesHelper(AppPreferencesHelper appPreferencesHelper) {
+        return appPreferencesHelper;
     }
 
     @Provides
