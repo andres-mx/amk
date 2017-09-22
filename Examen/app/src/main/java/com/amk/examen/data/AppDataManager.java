@@ -4,11 +4,14 @@ import android.content.Context;
 
 import com.amk.examen.data.db.DbHelper;
 import com.amk.examen.data.network.ApiHelper;
+import com.amk.examen.data.network.model.GettingStartedResponse;
 import com.amk.examen.data.prefs.PreferencesHelper;
 import com.amk.examen.di.ApplicationContext;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import io.reactivex.Observable;
 
 /**
  * Created by andresaleman on 9/21/17.
@@ -33,6 +36,11 @@ public class AppDataManager implements DataManager {
         mDbHelper = dbHelper;
         mPreferencesHelper = preferencesHelper;
         mApiHelper = apiHelper;
+    }
+
+    @Override
+    public Observable<GettingStartedResponse> getGettingStartedApiCall() {
+        return mApiHelper.getGettingStartedApiCall();
     }
 
     @Override

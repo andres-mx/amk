@@ -20,5 +20,5 @@ public interface ActivityComponent  {
     void inject(SplashActivity activity);
     void inject(LoginActivity activity);
     void inject(MainActivity activity);
-    //void inject(CategoriesFragment fragment);
+    void inject(CategoriesFragment fragment);
 }

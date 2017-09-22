@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.amk.examen.data.network.model.GettingStartedResponse;
 import com.amk.examen.di.ActivityContext;
 import com.amk.examen.di.PerActivity;
 import com.amk.examen.ui.login.LoginMvpPresenter;
@@ -12,11 +13,17 @@ import com.amk.examen.ui.login.LoginPresenter;
 import com.amk.examen.ui.main.MainMvpPresenter;
 import com.amk.examen.ui.main.MainMvpView;
 import com.amk.examen.ui.main.MainPresenter;
+import com.amk.examen.ui.main.categories.CategoriesAdapter;
+import com.amk.examen.ui.main.categories.CategoriesMvpPresenter;
+import com.amk.examen.ui.main.categories.CategoriesMvpView;
+import com.amk.examen.ui.main.categories.CategoriesPresenter;
 import com.amk.examen.ui.splash.SplashMvpPresenter;
 import com.amk.examen.ui.splash.SplashMvpView;
 import com.amk.examen.ui.splash.SplashPresenter;
 import com.amk.examen.utils.rx.AppSchedulerProvider;
 import com.amk.examen.utils.rx.SchedulerProvider;
+
+import java.util.ArrayList;
 
 import dagger.Module;
 import dagger.Provides;
@@ -75,6 +82,17 @@ public class ActivityModule {
     MainMvpPresenter<MainMvpView> provideMainPresenter(
             MainPresenter<MainMvpView> presenter) {
         return presenter;
+    }
+
+    @Provides
+    CategoriesMvpPresenter<CategoriesMvpView> provideCategoriesPresenter(
+            CategoriesPresenter<CategoriesMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    CategoriesAdapter provideCategoriesAdapter() {
+        return new CategoriesAdapter(new ArrayList<GettingStartedResponse.Result>());
     }
 
     @Provides

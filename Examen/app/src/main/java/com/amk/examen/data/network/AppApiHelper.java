@@ -1,5 +1,6 @@
 package com.amk.examen.data.network;
 
+import com.amk.examen.data.network.model.GettingStartedResponse;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 
 import javax.inject.Inject;
@@ -18,5 +19,12 @@ public class AppApiHelper implements ApiHelper
     @Inject
     public AppApiHelper() {
 
+    }
+
+    @Override
+    public Observable<GettingStartedResponse> getGettingStartedApiCall() {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_APPLICATIONS)
+                .build()
+                .getObjectObservable(GettingStartedResponse.class);
     }
 }
