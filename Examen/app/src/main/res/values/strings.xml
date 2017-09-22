@@ -6,4 +6,18 @@
     <string name="api_retry_error">Por favor, intenta de nuevo!</string>
     <string name="api_default_error">Algo ha pasado!</string>
     <string name="connection_error">Se perdió la conexión a internet!</string>
+
+    <!--Activity Login-->
+    <string name="action_login">Iniciar Sesión</string>
+    <string name="text_user">Usuario</string>
+    <string name="text_password">Contraseña</string>
+    <string name="info_empty">No se permiten campos vacíos</string>
+    <string name="info_space_user">No se aceptan espacios en blanco en el usuario</string>
+    <string name="info_space_password">No se aceptan espacios en blanco en la contraseña</string>
+    <string name="info_length_user">La longitud mínima del usuario es de 8 caracteres</string>
+    <string name="info_length_password">La longitud mínima del password es de 8 caracteres</string>
+    <string name="info_special_user">No se permiten caracteres especiales en el usuario</string>
+    <string name="info_special_password">No se permiten caracteres especiales en la contraseña</string>
+    <string name="info_letter_user">Se necesita al menos un letra mayúscula en el usuario</string>
+    <string name="info_letter_password">Se necesita al menos un letra mayúscula en la contraseña</string>
 </resources>

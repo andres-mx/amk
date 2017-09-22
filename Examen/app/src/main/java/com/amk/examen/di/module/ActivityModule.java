@@ -6,6 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.amk.examen.di.ActivityContext;
 import com.amk.examen.di.PerActivity;
+import com.amk.examen.ui.login.LoginMvpPresenter;
+import com.amk.examen.ui.login.LoginMvpView;
+import com.amk.examen.ui.login.LoginPresenter;
 import com.amk.examen.ui.splash.SplashMvpPresenter;
 import com.amk.examen.ui.splash.SplashMvpView;
 import com.amk.examen.ui.splash.SplashPresenter;
@@ -54,6 +57,13 @@ public class ActivityModule {
     @PerActivity
     SplashMvpPresenter<SplashMvpView> provideSplashPresenter(
             SplashPresenter<SplashMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    LoginMvpPresenter<LoginMvpView> provideLoginPresenter(
+            LoginPresenter<LoginMvpView> presenter) {
         return presenter;
     }
 
