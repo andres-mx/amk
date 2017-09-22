@@ -13,6 +13,10 @@ import com.amk.examen.ui.login.LoginPresenter;
 import com.amk.examen.ui.main.MainMvpPresenter;
 import com.amk.examen.ui.main.MainMvpView;
 import com.amk.examen.ui.main.MainPresenter;
+import com.amk.examen.ui.main.artist.ArtistAdapter;
+import com.amk.examen.ui.main.artist.ArtistMvpPresenter;
+import com.amk.examen.ui.main.artist.ArtistMvpView;
+import com.amk.examen.ui.main.artist.ArtistPresenter;
 import com.amk.examen.ui.main.categories.CategoriesAdapter;
 import com.amk.examen.ui.main.categories.CategoriesMvpPresenter;
 import com.amk.examen.ui.main.categories.CategoriesMvpView;
@@ -93,6 +97,17 @@ public class ActivityModule {
     @Provides
     CategoriesAdapter provideCategoriesAdapter() {
         return new CategoriesAdapter(new ArrayList<GettingStartedResponse.Result>());
+    }
+
+    @Provides
+    ArtistMvpPresenter<ArtistMvpView> provideArtistPresenter(
+            ArtistPresenter<ArtistMvpView> presenter) {
+        return presenter;
+    }
+
+    @Provides
+    ArtistAdapter provideArtistAdapter() {
+        return new ArtistAdapter(new ArrayList<GettingStartedResponse.Result>());
     }
 
     @Provides

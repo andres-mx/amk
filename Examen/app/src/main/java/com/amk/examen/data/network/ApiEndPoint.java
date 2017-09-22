@@ -8,8 +8,11 @@ import com.amk.examen.BuildConfig;
 
 public final class ApiEndPoint
 {
-    public static final String ENDPOINT_APPLICATIONS = BuildConfig.BASE_URL
+    public static final String ENDPOINT_BASE = BuildConfig.BASE_URL
             + "search?term=rock";
+
+    public static final String ENDPOINT_ARTIST = BuildConfig.BASE_URL
+            + "search?term=";
 
     private ApiEndPoint() {
 

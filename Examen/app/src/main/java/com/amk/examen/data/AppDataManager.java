@@ -44,6 +44,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public Observable<GettingStartedResponse> getGettingStartedArtistsApiCall(String primaryGenreName) {
+        return null;
+    }
+
+    @Override
     public int getCurrentUserLoggedInMode() {
         return mPreferencesHelper.getCurrentUserLoggedInMode();
     }

@@ -1,10 +1,7 @@
 package com.amk.examen.ui.main;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -12,7 +9,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +17,7 @@ import com.amk.examen.R;
 import com.amk.examen.ui.base.BaseActivity;
 import com.amk.examen.ui.custom.RoundedImageView;
 import com.amk.examen.ui.login.LoginActivity;
+import com.amk.examen.ui.main.artist.ArtistFragment;
 import com.amk.examen.ui.main.categories.CategoriesFragment;
 
 import javax.inject.Inject;
@@ -28,7 +25,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements MainMvpView
+public class MainActivity extends BaseActivity implements MainMvpView, CategoriesFragment.OnInteractionKind
 {
 
     @Inject
@@ -65,7 +62,6 @@ public class MainActivity extends BaseActivity implements MainMvpView
         mPresenter.onAttach(this);
 
         setUp();
-        showMainFragment();
     }
 
     @Override
@@ -143,6 +139,22 @@ public class MainActivity extends BaseActivity implements MainMvpView
                 .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
                 .add(R.id.cl_root_view, CategoriesFragment.newInstance(), CategoriesFragment.TAG)
                 .commit();
+    }
+
+    @Override
+    public void showArtistFragment(String primaryGenreName) {
+        lockDrawer();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .setCustomAnimations(R.anim.slide_left, R.anim.slide_right)
+                .replace(R.id.cl_root_view, ArtistFragment.newInstance(primaryGenreName), ArtistFragment.TAG)
+                .commit();
+    }
+
+    public void onInteractionKind(String primaryGenreName)
+    {
+        showArtistFragment(primaryGenreName);
     }
 
     @Override

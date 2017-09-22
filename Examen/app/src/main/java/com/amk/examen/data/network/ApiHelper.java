@@ -11,4 +11,6 @@ import io.reactivex.Observable;
 public interface ApiHelper
 {
     Observable<GettingStartedResponse> getGettingStartedApiCall();
+
+    Observable<GettingStartedResponse> getGettingStartedArtistsApiCall(String primaryGenreName);
 }

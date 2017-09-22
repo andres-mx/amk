@@ -23,7 +23,14 @@ public class AppApiHelper implements ApiHelper
 
     @Override
     public Observable<GettingStartedResponse> getGettingStartedApiCall() {
-        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_APPLICATIONS)
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_BASE)
+                .build()
+                .getObjectObservable(GettingStartedResponse.class);
+    }
+
+    @Override
+    public Observable<GettingStartedResponse> getGettingStartedArtistsApiCall(String primaryGenreName) {
+        return Rx2AndroidNetworking.get(ApiEndPoint.ENDPOINT_BASE)
                 .build()
                 .getObjectObservable(GettingStartedResponse.class);
     }

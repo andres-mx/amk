@@ -14,6 +14,10 @@ public interface MainMvpView extends MvpView
 
     void showMainFragment();
 
+    void showArtistFragment(String primaryGenreName);
+
+    void onInteractionKind(String primaryGenreName);
+
     void closeNavigationDrawer();
 
     void lockDrawer();

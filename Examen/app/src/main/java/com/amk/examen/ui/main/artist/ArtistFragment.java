@@ -1,7 +1,6 @@
-package com.amk.examen.ui.main.categories;
+package com.amk.examen.ui.main.artist;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,7 +14,10 @@ import com.amk.examen.R;
 import com.amk.examen.data.network.model.GettingStartedResponse;
 import com.amk.examen.di.component.ActivityComponent;
 import com.amk.examen.ui.base.BaseFragment;
-import com.amk.examen.ui.main.artist.ArtistAdapter;
+import com.amk.examen.ui.main.categories.CategoriesAdapter;
+import com.amk.examen.ui.main.categories.CategoriesFragment;
+import com.amk.examen.ui.main.categories.CategoriesMvpPresenter;
+import com.amk.examen.ui.main.categories.CategoriesMvpView;
 
 import java.util.ArrayList;
 
@@ -27,28 +29,29 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CategoriesFragment extends BaseFragment implements
-        CategoriesMvpView, CategoriesAdapter.Callback {
+public class ArtistFragment extends BaseFragment implements
+        ArtistMvpView, ArtistAdapter.Callback {
 
-    public static final String TAG = "CategoriesFragment";
+    public static final String TAG = "ArtistFragment";
+    private static String mPrimaryGenreName = "";
     @Inject
-    CategoriesMvpPresenter<CategoriesMvpView> mPresenter;
+    ArtistMvpPresenter<ArtistMvpView> mPresenter;
     @Inject
-    CategoriesAdapter mCategoriesAdapter;
+    ArtistAdapter mArtistAdapter;
     @Inject
     LinearLayoutManager mLayoutManager;
     @BindView(R.id.repo_recycler_view)
     RecyclerView mRecyclerView;
 
-    public OnInteractionKind listener;
-
-    public CategoriesFragment() {
+    public ArtistFragment() {
         // Required empty public constructor
     }
 
-    public static CategoriesFragment newInstance() {
+    public static ArtistFragment newInstance(String primaryGenreName)
+    {
+        mPrimaryGenreName = primaryGenreName;
         Bundle args = new Bundle();
-        CategoriesFragment fragment = new CategoriesFragment();
+        ArtistFragment fragment = new ArtistFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,31 +61,26 @@ public class CategoriesFragment extends BaseFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_categories, container, false);
+        View view = inflater.inflate(R.layout.fragment_artist, container, false);
 
         ActivityComponent component = getActivityComponent();
         if (component != null) {
             component.inject(this);
             setUnBinder(ButterKnife.bind(this, view));
             mPresenter.onAttach(this);
-            mCategoriesAdapter.setCallback(this);
-        }
-        if (getActivity() instanceof OnInteractionKind)
-        {
-            this.listener = (OnInteractionKind) getActivity();
+            mArtistAdapter.setCallback(this);
         }
         return view;
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void updateRepo(ArrayList<GettingStartedResponse.Result> resultArrayList) {
+        mArtistAdapter.addItems(resultArrayList);
     }
 
     @Override
-    public void updateRepo(ArrayList<GettingStartedResponse.Result> resultArrayList)
-    {
-        mCategoriesAdapter.addItems(resultArrayList);
+    public void onRepoEmptyViewRetryClick() {
+
     }
 
     @Override
@@ -92,40 +90,12 @@ public class CategoriesFragment extends BaseFragment implements
     }
 
     @Override
-    protected void setUp(View view)
-    {
+    protected void setUp(View view) {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setAdapter(mCategoriesAdapter);
+        mRecyclerView.setAdapter(mArtistAdapter);
 
-        mPresenter.onViewPrepared();
+        mPresenter.onViewPrepared(mPrimaryGenreName);
     }
-
-    @Override
-    public void onInteractionArtist(String primaryGenreName)
-    {
-        listener.onInteractionKind(primaryGenreName);
-    }
-
-    public interface OnInteractionKind {
-
-        void onInteractionKind(String primaryGenreName);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnInteractionKind)
-        {
-            this.listener = (OnInteractionKind) context;
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        this.listener = null;
-    }
-
 }
